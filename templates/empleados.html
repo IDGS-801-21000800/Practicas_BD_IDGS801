@@ -1,0 +1,39 @@
+{%extends "layout.html"%}
+{% from "_macros.html" import render_field%}
+{%block container%}
+<div class="container">
+    <div class="row">
+        <h3>Empleados</h3>
+        <table class="table tablble-striped table-bordered">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Direccion</th>
+                    <th>Telefono</th>
+                    <th>Email</th>
+                    <th>Sueldo</th>
+                    <th>Eliminar</th>
+                    <th>Modificar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {%for emp in empleados%}
+                    <tr>
+                        <td>{{emp.nombre}}</td>
+                        <td>{{emp.direccion}}</td>
+                        <td>{{emp.telefono}}</td>
+                        <td>{{emp.email}}</td>
+                        <td>{{emp.sueldo}}</td>
+                        <td>
+                            <a href="eliminar.html?id={{emp.id}}" class="btn btn-danger">Eliminar</a>
+                        </td>
+                        <td>
+                            <a href="modificar.html?id={{emp.id}}" class="btn btn-warning">Modificar</a>
+                        </td>
+                    </tr>
+                {%endfor%}
+            </tbody>
+        </table>
+    </div>
+</div>
+{%endblock%}

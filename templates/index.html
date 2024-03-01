@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{%block container %}
+{%from "_macros.html" import camposNuevos%}
+
+<h1>Empleados UTL</h1>
+<div class="container">
+    <div class="row">
+        <form name="sent" id="contactForm" action="/empleado" method="post">
+            <div class="row control-group">
+                <div class="form-group form-group col-xs-12 floating-label-form-group controls">
+                    {{camposNuevos(form.nombre, class="form-control")}}
+                </div>
+            </div>
+            <div class="row control-group">
+                <div class="form-group form-group col-xs-12 floating-label-form-group controls">
+                    {{camposNuevos(form.direccion, class="form-control")}}
+                </div>
+            </div>
+            <div class="row control-group">
+                <div class="form-group form-group col-xs-12 floating-label-form-group controls">
+                    {{camposNuevos(form.telefono, class="form-control")}}
+                </div>
+            </div>
+            <div class="row control-group">
+                <div class="form-group form-group col-xs-12 floating-label-form-group controls">
+                    {{camposNuevos(form.email, class="form-control")}}
+                </div>
+            </div>
+            <div class="row control-group">
+                <div class="form-group form-group col-xs-12 floating-label-form-group controls">
+                    {{camposNuevos(form.sueldo, class="form-control")}}
+                </div>
+            </div>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <input type="submit" value="Registrar" name="signup" id="send-signup" />
+        </form>
+
+    </div>
+</div>
+
+{%endblock%}
