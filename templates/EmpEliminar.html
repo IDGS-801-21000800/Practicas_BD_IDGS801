@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+{% import "_macros.html" as macros %}
+
+<h2>Eliminar {{form.nombre.data}}</h2>
+<form action="" method="post" novalidate>
+    <div class="row control-group">
+        <div class="form-group form-group col-xs-12 floating-label-form-group controls">
+            {{macros.camposNuevos(form.id, class="form-control")}}
+        </div>
+    </div>
+    <div class="row control-group">
+        <div class="form-group form-group col-xs-12 floating-label-form-group controls">
+            {{macros.camposNuevos(form.nombre, class="form-control")}}
+        </div>
+    </div>
+    <div class="row control-group">
+        <div class="form-group form-group col-xs-12 floating-label-form-group controls">
+            {{macros.camposNuevos(form.direccion, class="form-control")}}
+        </div>
+    </div>
+    <div class="row control-group">
+        <div class="form-group form-group col-xs-12 floating-label-form-group controls">
+            {{macros.camposNuevos(form.telefono, class="form-control")}}
+        </div>
+    </div>
+    <div class="row control-group">
+        <div class="form-group form-group col-xs-12 floating-label-form-group controls">
+            {{macros.camposNuevos(form.email, class="form-control")}}
+        </div>
+    </div>
+    <div class="row control-group">
+        <div class="form-group form-group col-xs-12 floating-label-form-group controls">
+            {{macros.camposNuevos(form.sueldo, class="form-control")}}
+        </div>
+    </div>
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+    <input type="submit" class="btn btn-danger" value="Eliminar">
+    <a href="empleados" class="btn btn-warning">Cancelar</a>
+</form>
+
+{% endblock %}

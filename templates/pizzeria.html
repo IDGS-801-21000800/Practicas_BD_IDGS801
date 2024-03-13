@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+
+{%from "_macros.html" import camposNuevos%}
+
+{%block container %}
+<h1>Pizzeria UTL</h1>
+
+<div class="container bg-pizza">
+    <div class="row">
+        <form name="sent" id="contactForm" action="/pizzeria" method="post">
+            <div class="row"><h3>Venta</h3></div>
+            <div class="row">
+                <div class="form-group form-group col-md-4 floating-label-form-group controls">
+                    {{camposNuevos(pizza.nombre, class="form-control")}}
+                </div>
+                <div class="form-group form-group col-md-4 floating-label-form-group controls">
+                    {{camposNuevos(pizza.direccion, class="form-control")}}
+                </div>
+                <div class="form-group form-group col-md-4 floating-label-form-group controls">
+                    {{camposNuevos(pizza.telefono, class="form-control")}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-group col-md-4 floating-label-form-group controls">
+                    {{camposNuevos(pizza.tamano)}}
+                </div>
+                <div class="col-md-4">
+                    <h5>Ingredientes</h5>
+                    <div class="row">
+                        {{camposNuevos(pizza.jamon, 1)}}
+                        {{camposNuevos(pizza.pina, 1)}}
+                        {{camposNuevos(pizza.champ, 1)}}
+                    </div>
+                </div>
+                <div class="form-group form-group col-md-4 floating-label-form-group controls">
+                    {{camposNuevos(pizza.cantidad, class="form-control")}}
+                    {{camposNuevos(pizza.created_date, class="form-control")}}
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+                    <input type="submit" value="Registrar" name="signup" id="send-signup" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="row bg-pizza">
+    <div class="col-md-6 p-3">
+        <form action="/ventas" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}" />
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Tamaño</th>
+                        <th>Ingredientes</th>
+                        <th>Cantidad</th>
+                        <th>Subtotal ${{stotal}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {%if pizzasv %}
+                    {%for emp in pizzasv%}
+                    <tr>
+                        <td>{{emp.id}}</td>
+                        <td>{{emp.tamano}}</td>
+                        <td>
+                            {%if emp.champ %}
+                            Champiñon
+                            {%endif%}
+                            {%if emp.pina %}
+                            Piña
+                            {%endif%}
+                            {%if emp.jamon %}
+                            Jamón
+                            {%endif%}
+                        </td>
+                        <td>{{emp.cantidad}}</td>
+                        <td>{{emp.total}}</td>
+                        <td>
+                            <a href="eliminarPizza?id={{emp.id}}" class="btn btn-danger">Eliminar</a>
+                        </td>
+                    </tr>
+                    {%endfor%}
+                    {%endif%}
+                </tbody>
+            </table>
+            <input type="submit" value="Aceptar" class="btn btn-success">
+            <a href="cancelar" class="btn btn-warning">Cancelar</a>
+        </form>
+    </div>
+    <div class="col-md-6 p-3">
+        <form action="" method="get" name="form">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th colspan="3" class="">
+                            <div>
+                                <input type="text" name="filtDia" placeholder="Dia" id="">
+                                <input type="text" name="filtMes" placeholder="mes" id="">
+                                <input type="submit" value="Buscar" class="btn btn-info">
+                            </div>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Fecha
+                        </th>
+                        <th>Total ${{total}}</th>
+                    </tr>
+                </thead>
+                {%if pizzas %}
+                {%for emp in pizzas%}
+                <tr>
+                    <td>{{emp.nombre}}</td>
+                    <td>{{emp.created_date.date()}}</td>
+                    <td>{{emp.total}}</td>
+                </tr>
+                {%endfor%}
+                {%endif%}
+            </table>
+        </form>
+    </div>
+</div>
+
+{%endblock%}
